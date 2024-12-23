@@ -10,17 +10,8 @@ export interface AuthResponse {
   token:    string;
 }
 
-
-const returnUserToken = (data: AuthResponse): {
-  user: User,
-  token: string
-} => {
+const returnUserToken = (data: AuthResponse): { user: User, token: string } => {
   const { token, ...user } = data;
-  
-  // const { id, email, fullName, isActive, roles, token } = data;
-  // const user: User = {
-  //   id, email, fullName, isActive, roles
-  // }
 
   return {
     user,
@@ -29,20 +20,16 @@ const returnUserToken = (data: AuthResponse): {
 }
 
 export const authLogin = async (email: string, password: string) => {
-  
   email = email.toLowerCase();
 
   try {
-    const { data } = await productsAPI.post<AuthResponse>('/auth/login', {
-      email, password
-    });
-    
+    const { data } = await productsAPI.post<AuthResponse>('/auth/login', { email, password });
     return returnUserToken(data);
     
   } catch (error) {
     console.log(error);
-    // throw new Error('User and/or password not valid');
     return null;
+
   }
 }
 
@@ -50,9 +37,30 @@ export const authCheckStatus = async () => {
   try {
     const { data } = await productsAPI.get<AuthResponse>('/auth/check-status');
     return returnUserToken(data);
+
   } catch (error) {
     return null;
+
   }
 }
 
-// TODO Hacer el register.
+export const authRegister = async (fullName: string, email: string, password: string) => {
+  email = email.toLowerCase();
+
+  try {
+    const { data } = await productsAPI.post<AuthResponse>('/auth/register', { email, password, fullName }, )
+    console.log("🚀 ~ authRegister ~ data:", data)
+    return returnUserToken(data);
+    
+  } catch (error) {
+    console.log(error);
+    if (error instanceof Error) {
+      console.log(error);
+      // console.log(error.name);
+      // console.log(error.message);
+    }
+    // console.log("🚀 ~ authRegister ~ error:", error)
+    return null;
+
+  }
+}

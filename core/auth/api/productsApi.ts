@@ -29,4 +29,15 @@ productsAPI.interceptors.request.use( async (config) => {
   return config;
 } )
 
+// productsAPI.interceptors.response.use( 
+//    response  => {
+//     console.log("🚀 ~ response:", response)
+//     return response
+//   },
+//   (error) => {
+//     console.log("🚀 ~ error:", error)
+    
+//     return Promise.reject(error);
+//   } )
+
 export { productsAPI };
