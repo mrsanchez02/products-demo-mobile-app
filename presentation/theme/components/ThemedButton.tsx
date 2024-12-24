@@ -27,9 +27,9 @@ export const ThemedButton = ({
       ]}
       {...rest}
     >
-      {iconStart && <Ionicons name={iconStart} size={24} color={"white"} />}
+      {iconStart && <Ionicons name={iconStart} size={24} color={"white"}  style={{marginEnd: 5}} />}
       <Text style={{color: 'white'}}>{children}</Text>
-      {iconEnd && <Ionicons name={iconEnd} size={24} color={"white"} />}
+      {iconEnd && <Ionicons name={iconEnd} size={24} color={"white"} style={{marginStart: 5}} />}
     </Pressable>
   );
 };

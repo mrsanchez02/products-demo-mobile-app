@@ -1,6 +1,8 @@
 import ProductImages from '@/presentation/products/components/ProductImages'
 import { useProduct } from '@/presentation/products/hooks/useProduct'
 import { useProducts } from '@/presentation/products/hooks/useProducts'
+import { ThemedButton } from '@/presentation/theme/components/ThemedButton'
+import ThemeButtonGroup from '@/presentation/theme/components/ThemedButtonGroup'
 import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput'
 import { ThemedView } from '@/presentation/theme/components/ThemedView'
 import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor'
@@ -26,6 +28,7 @@ const ProductScreen = () => {
 
   useEffect(() => {
     if (productQuery.data) {
+      // console.log("🚀 ~ useEffect ~ productQuery.data:", productQuery.data)
       navigation.setOptions({
         title: productQuery.data.title
       })
@@ -52,7 +55,7 @@ const ProductScreen = () => {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView>
         <ProductImages images={product.images ?? []}/>
@@ -86,6 +89,27 @@ const ProductScreen = () => {
             onChangeText={text => console.log(text)}
             style={{ flex: 1 }}
           />
+        </ThemedView>
+        <ThemedView style={{ marginHorizontal: 15, marginVertical: 5 }}>
+          <ThemeButtonGroup
+            options={['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']}
+            selectedOption={product.sizes ?? []}
+            onSelect={(options) => console.log({ options })}
+          />
+          <ThemeButtonGroup
+            options={['kid', 'men', 'women', 'unisex']}
+            selectedOption={[product.gender]}
+            onSelect={(options) => console.log({ options })}
+          />
+        </ThemedView>
+        {/* Button to save */}
+        <ThemedView style={{ marginHorizontal: 15, marginTop: 10, marginBottom: 50 }}>
+          <ThemedButton
+            iconStart={'save-outline'}
+            onPress={() => console.log('Save')}
+          >
+            Save
+          </ThemedButton>
         </ThemedView>
       </ScrollView>
     </KeyboardAvoidingView>
