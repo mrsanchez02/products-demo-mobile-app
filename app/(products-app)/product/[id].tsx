@@ -1,3 +1,4 @@
+import ProductImages from '@/presentation/products/components/ProductImages'
 import { useProduct } from '@/presentation/products/hooks/useProduct'
 import { useProducts } from '@/presentation/products/hooks/useProducts'
 import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput'
@@ -54,7 +55,7 @@ const ProductScreen = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <ScrollView>
-        {/* TODO Product Images */}
+        <ProductImages images={product.images ?? []}/>
         <ThemedView style={{ marginHorizontal: 15, marginTop: 20 }}>
           <ThemedTextInput
             placeholder='Product Name'
