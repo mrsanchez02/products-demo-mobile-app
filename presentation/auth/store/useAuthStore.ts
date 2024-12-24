@@ -1,5 +1,5 @@
 import { authCheckStatus, authLogin, authRegister } from "@/core/auth/actions/auth-actions";
-import { User } from "@/core/auth/interface/user";
+import { User } from "@/core/auth/interface/user.interface";
 import { SecureStorageAdapter } from "@/helpers/adapters/secure-storage.adapter";
 import { create } from "zustand";
 

@@ -1,6 +1,6 @@
-import { View, Text, TextInputProps, StyleSheet, TextInput } from 'react-native'
-import React, { useRef, useState } from 'react'
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons';
+import React, { useRef, useState } from 'react';
+import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
 import { useThemeColor } from '../hooks/useThemeColor';
 
 interface Props extends TextInputProps {
@@ -16,10 +16,10 @@ const ThemedTextInput = ({ icon, ...rest }: Props) => {
 
   return (
     <View
-      style={{
+      style={[{
         ...styles.border,
         borderColor: isActive ? primaryColor : '#ccc',
-      }}
+      }]}
       onTouchStart={() => inputRef.current?.focus()}
     >
       {icon && (
@@ -52,9 +52,10 @@ const styles = StyleSheet.create({
   border: {
     borderWidth: 1,
     borderRadius: 5,
-    padding: 5,
+    padding: 10,
     marginBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
   }
 })

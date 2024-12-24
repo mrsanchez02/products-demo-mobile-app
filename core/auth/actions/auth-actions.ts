@@ -1,5 +1,5 @@
-import { productsAPI } from "../api/productsApi";
-import { User } from "../interface/user";
+import { productsAPI } from "@/core/api/productsApi"; 
+import { User } from "../interface/user.interface";
 
 export interface AuthResponse {
   id:       string;
