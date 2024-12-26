@@ -8,7 +8,12 @@ const ProductImages = ({ images = [] }: Props) => {
 
   if (images.length === 0) {
     return (
-      <View>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center'
+        }}
+      >
         <Image
           source={require('@/assets/images/no-product-image.png')}
           style={{ width: '100%', height: 300 }}
