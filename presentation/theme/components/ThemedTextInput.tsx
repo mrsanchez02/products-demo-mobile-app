@@ -10,6 +10,7 @@ interface Props extends TextInputProps {
 const ThemedTextInput = ({ icon, ...rest }: Props) => {
   const primaryColor = useThemeColor({}, 'primary');
   const textColor = useThemeColor({}, 'text');
+  const iconColor = useThemeColor({}, 'icon');
 
   const [isActive, setIsActive] = useState(false);
   const inputRef = useRef<TextInput>(null)
@@ -26,7 +27,7 @@ const ThemedTextInput = ({ icon, ...rest }: Props) => {
         <Ionicons
           name={icon}
           size={24}
-          color={textColor}
+          color={iconColor}
           style={{ marginRight: 10 }}
         />
       )}
