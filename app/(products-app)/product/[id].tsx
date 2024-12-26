@@ -1,6 +1,7 @@
 import { Size } from '@/core/products/interface/product.interface'
 import ProductImages from '@/presentation/products/components/ProductImages'
 import { useProduct } from '@/presentation/products/hooks/useProduct'
+import { useCameraStore } from '@/presentation/store/useCameraStore'
 import MenuIconButton from '@/presentation/theme/components/MenuIconButton'
 import { ThemedButton } from '@/presentation/theme/components/ThemedButton'
 import ThemeButtonGroup from '@/presentation/theme/components/ThemedButtonGroup'
@@ -13,11 +14,20 @@ import React, { useEffect } from 'react'
 import { ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-native'
 
 const ProductScreen = () => {
+
+  const { selectedImages, clearImages } = useCameraStore()
+
   const { id } = useLocalSearchParams();
   const navigation = useNavigation()
   const { productQuery, productMutation } = useProduct(`${id}`)
 
   const primaryColor = useThemeColor({}, 'text');
+
+  useEffect(() => {
+    return () => {
+      clearImages()
+    }
+  },[])
 
   useEffect(() => {
     navigation.setOptions({
@@ -68,7 +78,7 @@ const ProductScreen = () => {
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           >
             <ScrollView>
-              <ProductImages images={values.images ?? []} />
+              <ProductImages images={[...product.images, ...selectedImages]} />
               <ThemedView style={{ marginHorizontal: 15, marginTop: 20 }}>
                 <ThemedTextInput
                   placeholder='Product Name'
