@@ -14,13 +14,32 @@ export const updateCreateProduct = async (productLike: Partial<Product>) => {
 
 }
 
+const prepareImages = async (images: string[]): Promise<string[]> => {
+  const fileImages = images.filter((img) => img.startsWith('file'))
+  const currentImages = images.filter((img) => !img.startsWith('file'))
+
+  if (fileImages.length > 0) {
+    const uploadPromises = fileImages.map(uploadImages);
+    const uploadedImages = await Promise.all(uploadPromises);
+    currentImages.push(...uploadedImages)
+  }
+
+  return currentImages.map(img => img.split('/').pop()!);
+}
+
+const uploadImages = async (image: string): Promise<string> => {
+  return ''
+}
+
 const updateProduct = async (productLike: Partial<Product>) => {
   const { id, images = [], user, ...rest } = productLike;
+
   try {
+    const checkedImages = await prepareImages(images);
     const { data } = await productsAPI.patch<Product>(`/products/${id}`, {
-      // todo: images
-      ...rest
-    })
+      ...rest,
+      images: checkedImages
+    });
 
     return data;
 
@@ -31,9 +50,10 @@ const updateProduct = async (productLike: Partial<Product>) => {
 const createProduct = async (productLike: Partial<Product>) => {
   const { id, images = [], user, ...rest } = productLike;
   try {
+    const checkedImages = await prepareImages(images);
     const { data } = await productsAPI.post<Product>("/products/", {
-      // todo: images
-      ...rest
+      ...rest,
+      images: checkedImages
     })
 
     return data;

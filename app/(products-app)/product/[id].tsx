@@ -70,7 +70,8 @@ const ProductScreen = () => {
   return (
     <Formik
       initialValues={product}
-      onSubmit={productMutation.mutate}
+      onSubmit={(producLike) => productMutation.mutate({...producLike, images: [...product.images, ...selectedImages]})}
+      // onSubmit={productMutation.mutate}
     >
       {
         ({ values, handleSubmit, handleChange, setFieldValue }) => (
