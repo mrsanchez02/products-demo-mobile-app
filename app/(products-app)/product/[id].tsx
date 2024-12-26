@@ -1,14 +1,13 @@
 import { Size } from '@/core/products/interface/product.interface'
 import ProductImages from '@/presentation/products/components/ProductImages'
 import { useProduct } from '@/presentation/products/hooks/useProduct'
-import { useProducts } from '@/presentation/products/hooks/useProducts'
+import MenuIconButton from '@/presentation/theme/components/MenuIconButton'
 import { ThemedButton } from '@/presentation/theme/components/ThemedButton'
 import ThemeButtonGroup from '@/presentation/theme/components/ThemedButtonGroup'
 import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput'
 import { ThemedView } from '@/presentation/theme/components/ThemedView'
 import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor'
-import { Ionicons } from '@expo/vector-icons'
-import { Redirect, useLocalSearchParams, useNavigation } from 'expo-router'
+import { Redirect, router, useLocalSearchParams, useNavigation } from 'expo-router'
 import { Formik } from 'formik'
 import React, { useEffect } from 'react'
 import { ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-native'
@@ -23,7 +22,10 @@ const ProductScreen = () => {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Ionicons name='camera-outline' size={24} />
+        <MenuIconButton
+          icon='camera-outline'
+          onPress={() => router.push('/camera')}
+        />
       )
     })
   }, [])
