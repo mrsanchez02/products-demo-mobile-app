@@ -3,6 +3,7 @@ import { Alert, Image, StyleSheet, TouchableOpacity, useWindowDimensions, View }
 
 import { CameraType, CameraView, FlashMode, useCameraPermissions } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
+import * as ImagePicker from 'expo-image-picker';
 import { router } from 'expo-router';
 
 import { ThemedText } from '@/presentation/theme/components/ThemedText';
@@ -50,7 +51,6 @@ export default function CameraScreen() {
   }
 
   if (!cameraPermission.granted || !mediaPermission?.granted) {
-    // Camera permissions are not granted yet.
     return (
       <View style={{
         ...styles.container,
@@ -75,13 +75,9 @@ export default function CameraScreen() {
       quality: 0.7,
     });
 
-    console.log(picture);
-
     if (!picture?.uri) return;
 
     setSelectedImage(picture.uri);
-
-    //TODO: Save picture to gallery
 
   }
 
@@ -100,6 +96,23 @@ export default function CameraScreen() {
 
   const onRetakePicture = () => {
     setSelectedImage(undefined);
+  }
+
+  const onPickImages = async () => {
+    // No permissions request is necessary for launching the image library
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      quality: 0.5,
+      aspect: [4, 3],
+      // allowsEditing: true,
+      allowsMultipleSelection: true,
+      selectionLimit: 5,
+    });
+
+    if (result.canceled) return;
+
+    result.assets.forEach(asset => addSelectedImage(asset.uri));
+    router.dismiss();
   }
 
   const onFlashPress = () => {
@@ -133,9 +146,9 @@ export default function CameraScreen() {
         <ShutterButton onPress={onShutterPress} />
         <FlipCameraButton onPress={toggleCameraFacing} />
         {/* TODO Gallery */}
-        <GalleryButton onPress={() => { }} />
+        <GalleryButton onPress={onPickImages} />
 
-        <ReturnCancelButton onPress={() => onReturnPress()} />
+        <ReturnCancelButton onPress={onReturnPress} />
         <FlashButton onPress={onFlashPress} flashMode={flash} />
       </CameraView>
     </View>
