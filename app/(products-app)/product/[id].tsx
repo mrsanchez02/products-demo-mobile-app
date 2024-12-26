@@ -16,7 +16,7 @@ import { ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, Text, Vi
 const ProductScreen = () => {
   const { id } = useLocalSearchParams();
   const navigation = useNavigation()
-  const { productQuery } = useProduct(`${id}`)
+  const { productQuery, productMutation } = useProduct(`${id}`)
 
   const primaryColor = useThemeColor({}, 'text');
 
@@ -58,7 +58,7 @@ const ProductScreen = () => {
   return (
     <Formik
       initialValues={product}
-      onSubmit={(productLike) => console.log(productLike)}
+      onSubmit={productMutation.mutate}
     >
       {
         ({ values, handleSubmit, handleChange, setFieldValue }) => (
@@ -127,7 +127,7 @@ const ProductScreen = () => {
               <ThemedView style={{ marginHorizontal: 15, marginTop: 10, marginBottom: 50 }}>
                 <ThemedButton
                   iconStart={'save-outline'}
-                  onPress={() => console.log('Save')}
+                  onPress={() => handleSubmit()}
                 >
                   Save
                 </ThemedButton>

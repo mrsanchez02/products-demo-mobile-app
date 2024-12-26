@@ -1,5 +1,7 @@
 import { getProductById } from "@/core/products/actions/get-product-by-id.actions"
-import { useQuery } from "@tanstack/react-query"
+import { Product } from "@/core/products/interface/product.interface"
+import { useMutation, useQuery } from "@tanstack/react-query"
+import { Alert } from "react-native"
 
 export const useProduct = (productId: string) => {
   
@@ -10,10 +12,22 @@ export const useProduct = (productId: string) => {
   })
 
   // Mutacion.
+  const productMutation = useMutation({
+    mutationFn: async (data: Product) => {
+      // TODO Fire save action.
+      console.log(data)
+      return data;
+    },
+    onSuccess( data: Product ) {
+      // TODO: Invalidate product queries
+      Alert.alert("Product Saved", `The Product ${data.title} was saved successfully`)
+    }
+  })
 
   // Mantener el iD del producto en caso de ser uno nuevo.
   
   return {
-    productQuery
+    productQuery,
+    productMutation
   }
 }
