@@ -13,7 +13,7 @@ export const API_URL =
       ? process.env.EXPO_PUBLIC_API_URL_IOS
       : process.env.EXPO_PUBLIC_API_URL_ANDROID
 
-// console.log({ STAGE, [Platform.OS]: API_URL });
+console.log({ STAGE, [Platform.OS]: API_URL });
 
 const productsAPI = axios.create({
   baseURL: API_URL
