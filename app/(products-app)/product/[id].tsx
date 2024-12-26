@@ -70,19 +70,19 @@ const ProductScreen = () => {
               <ThemedView style={{ marginHorizontal: 15, marginTop: 20 }}>
                 <ThemedTextInput
                   placeholder='Product Name'
-                  style={{ marginVertical: 5 }}
+                  // style={{ marginVertical: 5 }}
                   value={values.title}
                   onChangeText={handleChange('title')}
                 />
                 <ThemedTextInput
                   placeholder='Slug'
-                  style={{ marginVertical: 5 }}
+                  // style={{ marginVertical: 5 }}
                   value={values.slug}
                   onChangeText={handleChange('slug')}
                 />
                 <ThemedTextInput
                   placeholder='Description'
-                  style={{ marginVertical: 5 }}
+                  // style={{ marginVertical: 5 }}
                   multiline
                   numberOfLines={5}
                   value={values.description}
@@ -92,14 +92,14 @@ const ProductScreen = () => {
               <ThemedView style={{ marginHorizontal: 15, marginVertical: 5, flexDirection: 'row', gap: 10 }}>
                 <ThemedTextInput
                   placeholder='Price'
-                  style={{ flex: 1 }}
+                  // style={{ flex: 1 }}
                   value={values.price.toString()}
                   onChangeText={handleChange('price')}
                   keyboardType='number-pad'
                 />
                 <ThemedTextInput
                   placeholder='Stock'
-                  style={{ flex: 1 }}
+                  // style={{ flex: 1 }}
                   value={values.stock.toString()}
                   onChangeText={handleChange('stock')}
                   keyboardType='number-pad'
