@@ -3,6 +3,7 @@ import { getProductById } from "@/core/products/actions/get-product-by-id.action
 import { Product } from "@/core/products/interface/product.interface"
 import { useCameraStore } from "@/presentation/store/useCameraStore"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { router } from "expo-router"
 import { useRef } from "react"
 import { Alert } from "react-native"
 
@@ -26,6 +27,9 @@ export const useProduct = (productId: string) => {
       id: productIdRef.current
     }),
     onSuccess( data: Product ) {
+      if (productIdRef.current === 'new') {
+        router.navigate('/(products-app)/(home)');
+      }
       productIdRef.current = data.id;
 
       clearImages();
@@ -38,11 +42,9 @@ export const useProduct = (productId: string) => {
         queryKey: ['products', data.id]
       })
 
-      Alert.alert("Product Saved", `The Product ${data.title} was saved successfully`)
+      Alert.alert("Product Saved", `The Product ${data.title} was saved successfully`);
     }
   })
-
-  // Mantener el iD del producto en caso de ser uno nuevo.
   
   return {
     productQuery,
