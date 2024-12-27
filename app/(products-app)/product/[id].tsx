@@ -11,7 +11,7 @@ import { useThemeColor } from '@/presentation/theme/hooks/useThemeColor'
 import { Redirect, router, useLocalSearchParams, useNavigation } from 'expo-router'
 import { Formik } from 'formik'
 import React, { useEffect } from 'react'
-import { ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-native'
+import { ActivityIndicator, KeyboardAvoidingView, Platform, RefreshControl, ScrollView, Text, View } from 'react-native'
 
 const ProductScreen = () => {
 
@@ -78,7 +78,14 @@ const ProductScreen = () => {
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           >
-            <ScrollView>
+            <ScrollView
+              refreshControl={
+                <RefreshControl
+                  refreshing={productQuery.isFetching}
+                  onRefresh={async () => productQuery.refetch()}
+                />
+              }
+            >
               <ProductImages images={[...product.images, ...selectedImages]} />
               <ThemedView style={{ marginHorizontal: 15, marginTop: 20 }}>
                 <ThemedTextInput

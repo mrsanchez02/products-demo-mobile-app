@@ -28,7 +28,21 @@ const prepareImages = async (images: string[]): Promise<string[]> => {
 }
 
 const uploadImages = async (image: string): Promise<string> => {
-  return ''
+
+  const formData = new FormData() as any;
+  formData.append('file', {
+    uri: image,
+    type: 'image/jpeg',
+    name: image.split('/').pop()
+  })
+
+  const { data } = await productsAPI.post<{ image: string }>('/files/product', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+
+  return data.image
 }
 
 const updateProduct = async (productLike: Partial<Product>) => {
